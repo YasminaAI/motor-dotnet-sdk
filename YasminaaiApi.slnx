@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/YasminaaiApi.Test/YasminaaiApi.Test.csproj" />
+  <Project Path="src/YasminaaiApi/YasminaaiApi.csproj" />
+</Solution>

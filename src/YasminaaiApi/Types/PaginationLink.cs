@@ -5,35 +5,20 @@ using YasminaaiApi.Core;
 namespace YasminaaiApi;
 
 [Serializable]
-public record Benefit : IJsonOnDeserialized
+public record PaginationLink : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    [JsonPropertyName("quote_benefit_id")]
-    public string? QuoteBenefitId { get; set; }
-
-    [JsonPropertyName("id")]
-    public string? Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string? Name { get; set; }
-
-    /// <summary>
-    /// Arabic name of the benefit. Use this field instead of `name` when rendering Arabic UIs.
-    /// </summary>
-    [JsonPropertyName("name_ar")]
-    public string? NameAr { get; set; }
-
-    [JsonPropertyName("amount")]
-    public double? Amount { get; set; }
-
-    [JsonPropertyName("vat")]
-    public double? Vat { get; set; }
-
     [JsonPropertyName("url")]
     public string? Url { get; set; }
+
+    [JsonPropertyName("label")]
+    public string? Label { get; set; }
+
+    [JsonPropertyName("active")]
+    public bool? Active { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

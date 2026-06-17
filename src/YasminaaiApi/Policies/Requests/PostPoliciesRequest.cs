@@ -7,6 +7,12 @@ namespace YasminaaiApi;
 public record PostPoliciesRequest
 {
     /// <summary>
+    /// The OTP received by the customer from the Issue OTP API
+    /// </summary>
+    [JsonPropertyName("otp")]
+    public required string Otp { get; set; }
+
+    /// <summary>
     /// ID of the car quote request
     /// </summary>
     [JsonPropertyName("quote_request_id")]

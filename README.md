@@ -1,7 +1,7 @@
 # Yasminaai C# Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2FYasminaAI%2Fmotor-dotnet-sdk)
-[![nuget shield](https://img.shields.io/nuget/v/YasminaaiApi)](https://nuget.org/packages/YasminaaiApi)
+[![nuget shield](https://img.shields.io/nuget/v/Yasmina.Motor.DotNet)](https://nuget.org/packages/Yasmina.Motor.DotNet)
 
 The Yasminaai C# library provides convenient access to the Yasminaai APIs from C#.
 
@@ -19,6 +19,7 @@ The Yasminaai C# library provides convenient access to the Yasminaai APIs from C
   - [Raw Response](#raw-response)
   - [Additional Headers](#additional-headers)
   - [Additional Query Parameters](#additional-query-parameters)
+  - [Forward Compatible Enums](#forward-compatible-enums)
 - [Contributing](#contributing)
 
 ## Requirements
@@ -28,7 +29,7 @@ This SDK requires:
 ## Installation
 
 ```sh
-dotnet add package YasminaaiApi
+dotnet add package Yasmina.Motor.DotNet
 ```
 
 ## Reference
@@ -46,10 +47,10 @@ var client = new YasminaaiApiClient("TOKEN");
 await client.Quotes.RequestQuotesAsync(
     new PostQuoteRequestsRequest
     {
+        Otp = "123456",
         OwnerId = "owner_id",
         Phone = "phone",
         Birthdate = new DateOnly(2023, 1, 15),
-        CarSequenceNumber = "car_sequence_number",
         CarEstimatedCost = 1.1,
     }
 );
@@ -64,7 +65,7 @@ using YasminaaiApi;
 
 var client = new YasminaaiApiClient(new ClientOptions
 {
-    BaseUrl = YasminaaiApiEnvironment.Default
+    BaseUrl = YasminaaiApiEnvironment.Sandbox
 });
 ```
 
@@ -202,6 +203,35 @@ var response = await client.Quotes.RequestQuotesAsync(
         }
     }
 );
+```
+
+### Forward Compatible Enums
+
+This SDK uses forward-compatible enums that can handle unknown values gracefully.
+
+```csharp
+using YasminaaiApi;
+
+// Using a built-in value
+var postQuoteRequestsRequestAcceptLanguage = PostQuoteRequestsRequestAcceptLanguage.Ar;
+
+// Using a custom value
+var customPostQuoteRequestsRequestAcceptLanguage = PostQuoteRequestsRequestAcceptLanguage.FromCustom("custom-value");
+
+// Using in a switch statement
+switch (postQuoteRequestsRequestAcceptLanguage.Value)
+{
+    case PostQuoteRequestsRequestAcceptLanguage.Values.Ar:
+        Console.WriteLine("Ar");
+        break;
+    default:
+        Console.WriteLine($"Unknown value: {postQuoteRequestsRequestAcceptLanguage.Value}");
+        break;
+}
+
+// Explicit casting
+string postQuoteRequestsRequestAcceptLanguageString = (string)PostQuoteRequestsRequestAcceptLanguage.Ar;
+PostQuoteRequestsRequestAcceptLanguage postQuoteRequestsRequestAcceptLanguageFromString = (PostQuoteRequestsRequestAcceptLanguage)"ar";
 ```
 
 ## Contributing

@@ -14,6 +14,7 @@ public class IssuePolicyTest : BaseMockServerTest
     {
         const string requestJson = """
             {
+              "otp": "123456",
               "quote_request_id": 123,
               "quote_reference_id": "550e8400-e29b-41d4-a716-446655440000",
               "quote_price_id": "550e8400-e29b-41d4-a716-446655440001"
@@ -34,6 +35,7 @@ public class IssuePolicyTest : BaseMockServerTest
               "end_date": "end_date",
               "is_claimed": true,
               "created_at": "created_at",
+              "uploaded_at": "2024-01-15T09:30:00.000Z",
               "updated_at": "updated_at",
               "client_id": "client_id",
               "canceled_at": "canceled_at",
@@ -61,6 +63,7 @@ public class IssuePolicyTest : BaseMockServerTest
         var response = await Client.Policies.IssuePolicyAsync(
             new PostPoliciesRequest
             {
+                Otp = "123456",
                 QuoteRequestId = 123,
                 QuoteReferenceId = "550e8400-e29b-41d4-a716-446655440000",
                 QuotePriceId = "550e8400-e29b-41d4-a716-446655440001",

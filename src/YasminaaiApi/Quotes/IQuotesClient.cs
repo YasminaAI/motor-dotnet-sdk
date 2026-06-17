@@ -14,7 +14,8 @@ public partial interface IQuotesClient
         CancellationToken cancellationToken = default
     );
 
-    WithRawResponseTask<GetQuoteRequestsResponse> ListQuotesAsync(
+    WithRawResponseTask<PaginatedQuoteResponse> ListQuotesAsync(
+        GetQuoteRequestsRequest request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
     );

@@ -92,13 +92,13 @@ public partial class PoliciesClient : IPoliciesClient
         }
     }
 
-    private async Task<WithRawResponse<IEnumerable<Policy>>> ListPoliciesAsyncCore(
+    private async Task<WithRawResponse<PaginatedPolicyResponse>> ListPoliciesAsyncCore(
         GetPoliciesRequest request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
     )
     {
-        var _queryString = new YasminaaiApi.Core.QueryStringBuilder.Builder(capacity: 10)
+        var _queryString = new YasminaaiApi.Core.QueryStringBuilder.Builder(capacity: 13)
             .Add("quote_request_id", request.QuoteRequestId)
             .Add("quote_price_id", request.QuotePriceId)
             .Add("provider_policy_id", request.ProviderPolicyId)
@@ -109,6 +109,9 @@ public partial class PoliciesClient : IPoliciesClient
             .Add("min_price", request.MinPrice)
             .Add("max_price", request.MaxPrice)
             .Add("per_page", request.PerPage)
+            .Add("date_from", request.DateFrom)
+            .Add("date_to", request.DateTo)
+            .Add("include_aggregates", request.IncludeAggregates)
             .MergeAdditional(options?.AdditionalQueryParameters)
             .Build();
         var _headers = await new YasminaaiApi.Core.HeadersBuilder.Builder()
@@ -137,8 +140,8 @@ public partial class PoliciesClient : IPoliciesClient
                 .ConfigureAwait(false);
             try
             {
-                var responseData = JsonUtils.Deserialize<IEnumerable<Policy>>(responseBody)!;
-                return new WithRawResponse<IEnumerable<Policy>>()
+                var responseData = JsonUtils.Deserialize<PaginatedPolicyResponse>(responseBody)!;
+                return new WithRawResponse<PaginatedPolicyResponse>()
                 {
                     Data = responseData,
                     RawResponse = new YasminaaiApi.RawResponse()
@@ -339,15 +342,22 @@ public partial class PoliciesClient : IPoliciesClient
     /// Listing requested policies
     /// </summary>
     /// <example><code>
-    /// await client.Policies.ListPoliciesAsync(new GetPoliciesRequest());
+    /// await client.Policies.ListPoliciesAsync(
+    ///     new GetPoliciesRequest
+    ///     {
+    ///         DateFrom = new DateOnly(2026, 6, 1),
+    ///         DateTo = new DateOnly(2026, 6, 30),
+    ///         IncludeAggregates = true,
+    ///     }
+    /// );
     /// </code></example>
-    public WithRawResponseTask<IEnumerable<Policy>> ListPoliciesAsync(
+    public WithRawResponseTask<PaginatedPolicyResponse> ListPoliciesAsync(
         GetPoliciesRequest request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
     )
     {
-        return new WithRawResponseTask<IEnumerable<Policy>>(
+        return new WithRawResponseTask<PaginatedPolicyResponse>(
             ListPoliciesAsyncCore(request, options, cancellationToken)
         );
     }
@@ -359,6 +369,7 @@ public partial class PoliciesClient : IPoliciesClient
     /// await client.Policies.IssuePolicyAsync(
     ///     new PostPoliciesRequest
     ///     {
+    ///         Otp = "123456",
     ///         QuoteRequestId = 123,
     ///         QuoteReferenceId = "550e8400-e29b-41d4-a716-446655440000",
     ///         QuotePriceId = "550e8400-e29b-41d4-a716-446655440001",

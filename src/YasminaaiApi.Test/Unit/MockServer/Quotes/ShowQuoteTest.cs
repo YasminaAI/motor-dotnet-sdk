@@ -18,6 +18,7 @@ public class ShowQuoteTest : BaseMockServerTest
               "phone": "phone",
               "birthdate": "2023-01-15",
               "car_sequence_number": 1,
+              "custom_number": "custom_number",
               "is_ownership_transfer": true,
               "car_estimated_cost": 1.1,
               "car_model_year": 1,
@@ -32,6 +33,12 @@ public class ShowQuoteTest : BaseMockServerTest
               "quotes": [
                 {
                   "company_name": "company_name",
+                  "company_name_ar": "company_name_ar",
+                  "type": "TPL",
+                  "insurance_type_display": "insurance_type_display",
+                  "insurance_type_display_ar": "insurance_type_display_ar",
+                  "company_logo_url": "company_logo_url",
+                  "square_company_logo_url": "square_company_logo_url",
                   "prices": [
                     {
                       "vat_percentage": 15

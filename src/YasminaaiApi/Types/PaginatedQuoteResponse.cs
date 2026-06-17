@@ -5,7 +5,7 @@ using YasminaaiApi.Core;
 namespace YasminaaiApi;
 
 [Serializable]
-public record GetQuoteRequestsResponse : IJsonOnDeserialized
+public record PaginatedQuoteResponse : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
@@ -30,7 +30,7 @@ public record GetQuoteRequestsResponse : IJsonOnDeserialized
     public string? LastPageUrl { get; set; }
 
     [JsonPropertyName("links")]
-    public IEnumerable<GetQuoteRequestsResponseLinksItem>? Links { get; set; }
+    public IEnumerable<PaginationLink>? Links { get; set; }
 
     [JsonPropertyName("next_page_url")]
     public string? NextPageUrl { get; set; }
@@ -49,6 +49,9 @@ public record GetQuoteRequestsResponse : IJsonOnDeserialized
 
     [JsonPropertyName("total")]
     public int? Total { get; set; }
+
+    [JsonPropertyName("aggregates")]
+    public QuoteRequestAggregates? Aggregates { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

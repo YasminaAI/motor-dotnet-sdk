@@ -3,8 +3,8 @@
   "generatorName": "fernapi/fern-csharp-sdk",
   "generatorVersion": "2.68.2",
   "originGitCommit": "9e1dac74da22e6ce70105351ca7bd59c2a602d32",
-  "originGitCommitIsDirty": true,
+  "originGitCommitIsDirty": false,
   "invokedBy": "manual",
-  "requestedVersion": "0.0.50",
-  "sdkVersion": "0.0.50"
+  "requestedVersion": "0.0.51",
+  "sdkVersion": "0.0.51"
 }

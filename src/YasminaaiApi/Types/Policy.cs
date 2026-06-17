@@ -41,6 +41,12 @@ public record Policy : IJsonOnDeserialized
     [JsonPropertyName("created_at")]
     public string? CreatedAt { get; set; }
 
+    /// <summary>
+    /// Timestamp when the provider policy document was attached. For issued motor policies this is the closest available issue/purchase timestamp.
+    /// </summary>
+    [JsonPropertyName("uploaded_at")]
+    public DateTime? UploadedAt { get; set; }
+
     [JsonPropertyName("updated_at")]
     public string? UpdatedAt { get; set; }
 

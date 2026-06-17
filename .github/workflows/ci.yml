@@ -40,3 +40,13 @@ jobs:
       - name: Test
         run: dotnet test src/YasminaaiApi.Test/YasminaaiApi.Test.csproj --no-restore --no-build -c Release
 
+      - name: Pack
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+        run: dotnet pack src/YasminaaiApi/YasminaaiApi.csproj --no-build --no-restore -c Release
+
+      - name: Publish to NuGet.org
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push src/YasminaaiApi/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source "nuget.org"
+

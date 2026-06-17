@@ -80,7 +80,7 @@ await client.Quotes.DeleteQuoteAsync(new DeleteQuoteRequestsIdRequest { Id = 1 }
 </dl>
 </details>
 
-<details><summary><code>client.Quotes.<a href="/src/YasminaaiApi/Quotes/QuotesClient.cs">ListQuotesAsync</a>() -> WithRawResponseTask&lt;GetQuoteRequestsResponse&gt;</code></summary>
+<details><summary><code>client.Quotes.<a href="/src/YasminaaiApi/Quotes/QuotesClient.cs">ListQuotesAsync</a>(GetQuoteRequestsRequest { ... }) -> WithRawResponseTask&lt;PaginatedQuoteResponse&gt;</code></summary>
 <dl>
 <dd>
 
@@ -93,8 +93,31 @@ await client.Quotes.DeleteQuoteAsync(new DeleteQuoteRequestsIdRequest { Id = 1 }
 <dd>
 
 ```csharp
-await client.Quotes.ListQuotesAsync();
+await client.Quotes.ListQuotesAsync(
+    new GetQuoteRequestsRequest
+    {
+        DateFrom = new DateOnly(2026, 6, 1),
+        DateTo = new DateOnly(2026, 6, 30),
+        PerPage = 10,
+        IncludeAggregates = true,
+    }
+);
 ```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `GetQuoteRequestsRequest` 
+    
 </dd>
 </dl>
 </dd>
@@ -136,10 +159,10 @@ The Quote IDs can be used later to issue a policy
 await client.Quotes.RequestQuotesAsync(
     new PostQuoteRequestsRequest
     {
+        Otp = "123456",
         OwnerId = "owner_id",
         Phone = "phone",
         Birthdate = new DateOnly(2023, 1, 15),
-        CarSequenceNumber = "car_sequence_number",
         CarEstimatedCost = 1.1,
     }
 );
@@ -224,7 +247,7 @@ await client.Policies.ShowPolicyAsync(new GetPoliciesCarPolicyRequest { CarPolic
 </dl>
 </details>
 
-<details><summary><code>client.Policies.<a href="/src/YasminaaiApi/Policies/PoliciesClient.cs">ListPoliciesAsync</a>(GetPoliciesRequest { ... }) -> WithRawResponseTask&lt;IEnumerable&lt;Policy&gt;&gt;</code></summary>
+<details><summary><code>client.Policies.<a href="/src/YasminaaiApi/Policies/PoliciesClient.cs">ListPoliciesAsync</a>(GetPoliciesRequest { ... }) -> WithRawResponseTask&lt;PaginatedPolicyResponse&gt;</code></summary>
 <dl>
 <dd>
 
@@ -251,7 +274,14 @@ Listing requested policies
 <dd>
 
 ```csharp
-await client.Policies.ListPoliciesAsync(new GetPoliciesRequest());
+await client.Policies.ListPoliciesAsync(
+    new GetPoliciesRequest
+    {
+        DateFrom = new DateOnly(2026, 6, 1),
+        DateTo = new DateOnly(2026, 6, 30),
+        IncludeAggregates = true,
+    }
+);
 ```
 </dd>
 </dl>
@@ -308,6 +338,7 @@ For issuing a new policy
 await client.Policies.IssuePolicyAsync(
     new PostPoliciesRequest
     {
+        Otp = "123456",
         QuoteRequestId = 123,
         QuoteReferenceId = "550e8400-e29b-41d4-a716-446655440000",
         QuotePriceId = "550e8400-e29b-41d4-a716-446655440001",

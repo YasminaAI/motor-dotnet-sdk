@@ -5,20 +5,17 @@ using YasminaaiApi.Core;
 namespace YasminaaiApi;
 
 [Serializable]
-public record GetQuoteRequestsResponseLinksItem : IJsonOnDeserialized
+public record PolicyMonthAggregate : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    [JsonPropertyName("url")]
-    public string? Url { get; set; }
+    [JsonPropertyName("count")]
+    public int? Count { get; set; }
 
-    [JsonPropertyName("label")]
-    public string? Label { get; set; }
-
-    [JsonPropertyName("active")]
-    public bool? Active { get; set; }
+    [JsonPropertyName("total_price")]
+    public float? TotalPrice { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

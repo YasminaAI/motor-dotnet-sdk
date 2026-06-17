@@ -26,6 +26,7 @@ public class ShowPolicyTest : BaseMockServerTest
               "end_date": "end_date",
               "is_claimed": true,
               "created_at": "created_at",
+              "uploaded_at": "2024-01-15T09:30:00.000Z",
               "updated_at": "updated_at",
               "client_id": "client_id",
               "canceled_at": "canceled_at",

@@ -14,10 +14,10 @@ public class RequestQuotesTest : BaseMockServerTest
     {
         const string requestJson = """
             {
+              "otp": "123456",
               "owner_id": "owner_id",
               "phone": "phone",
               "birthdate": "2023-01-15",
-              "car_sequence_number": "car_sequence_number",
               "car_estimated_cost": 1.1
             }
             """;
@@ -28,6 +28,7 @@ public class RequestQuotesTest : BaseMockServerTest
               "phone": "phone",
               "birthdate": "2023-01-15",
               "car_sequence_number": 1,
+              "custom_number": "custom_number",
               "is_ownership_transfer": true,
               "car_estimated_cost": 1.1,
               "car_model_year": 1,
@@ -42,6 +43,12 @@ public class RequestQuotesTest : BaseMockServerTest
               "quotes": [
                 {
                   "company_name": "company_name",
+                  "company_name_ar": "company_name_ar",
+                  "type": "TPL",
+                  "insurance_type_display": "insurance_type_display",
+                  "insurance_type_display_ar": "insurance_type_display_ar",
+                  "company_logo_url": "company_logo_url",
+                  "square_company_logo_url": "square_company_logo_url",
                   "prices": [
                     {
                       "vat_percentage": 15
@@ -78,10 +85,10 @@ public class RequestQuotesTest : BaseMockServerTest
         var response = await Client.Quotes.RequestQuotesAsync(
             new PostQuoteRequestsRequest
             {
+                Otp = "123456",
                 OwnerId = "owner_id",
                 Phone = "phone",
                 Birthdate = new DateOnly(2023, 1, 15),
-                CarSequenceNumber = "car_sequence_number",
                 CarEstimatedCost = 1.1,
             }
         );

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using YasminaaiApi;
 using YasminaaiApi.Test.Unit.MockServer;
 using YasminaaiApi.Test.Utils;
 
@@ -20,6 +21,7 @@ public class ListQuotesTest : BaseMockServerTest
                   "phone": "phone",
                   "birthdate": "2023-01-15",
                   "car_sequence_number": 1,
+                  "custom_number": "custom_number",
                   "is_ownership_transfer": true,
                   "car_estimated_cost": 1.1,
                   "car_model_year": 1,
@@ -58,12 +60,26 @@ public class ListQuotesTest : BaseMockServerTest
               "per_page": 1,
               "prev_page_url": "prev_page_url",
               "to": 1,
-              "total": 1
+              "total": 1,
+              "aggregates": {
+                "total_count": 24,
+                "by_month": {
+                  "2026-06": 24
+                }
+              }
             }
             """;
 
         Server
-            .Given(WireMock.RequestBuilders.Request.Create().WithPath("/quote-requests").UsingGet())
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/quote-requests")
+                    .WithParam("date_from", "2026-06-01")
+                    .WithParam("date_to", "2026-06-30")
+                    .WithParam("per_page", "10")
+                    .UsingGet()
+            )
             .RespondWith(
                 WireMock
                     .ResponseBuilders.Response.Create()
@@ -71,7 +87,15 @@ public class ListQuotesTest : BaseMockServerTest
                     .WithBody(mockResponse)
             );
 
-        var response = await Client.Quotes.ListQuotesAsync();
+        var response = await Client.Quotes.ListQuotesAsync(
+            new GetQuoteRequestsRequest
+            {
+                DateFrom = new DateOnly(2026, 6, 1),
+                DateTo = new DateOnly(2026, 6, 30),
+                PerPage = 10,
+                IncludeAggregates = true,
+            }
+        );
         JsonAssert.AreEqual(response, mockResponse);
     }
 }

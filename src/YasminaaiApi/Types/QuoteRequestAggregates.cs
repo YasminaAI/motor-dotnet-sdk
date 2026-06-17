@@ -4,36 +4,24 @@ using YasminaaiApi.Core;
 
 namespace YasminaaiApi;
 
+/// <summary>
+/// Returned only when include_aggregates is true.
+/// </summary>
 [Serializable]
-public record Benefit : IJsonOnDeserialized
+public record QuoteRequestAggregates : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    [JsonPropertyName("quote_benefit_id")]
-    public string? QuoteBenefitId { get; set; }
-
-    [JsonPropertyName("id")]
-    public string? Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string? Name { get; set; }
+    [JsonPropertyName("total_count")]
+    public int? TotalCount { get; set; }
 
     /// <summary>
-    /// Arabic name of the benefit. Use this field instead of `name` when rendering Arabic UIs.
+    /// Monthly quote request counts keyed by YYYY-MM.
     /// </summary>
-    [JsonPropertyName("name_ar")]
-    public string? NameAr { get; set; }
-
-    [JsonPropertyName("amount")]
-    public double? Amount { get; set; }
-
-    [JsonPropertyName("vat")]
-    public double? Vat { get; set; }
-
-    [JsonPropertyName("url")]
-    public string? Url { get; set; }
+    [JsonPropertyName("by_month")]
+    public Dictionary<string, int>? ByMonth { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

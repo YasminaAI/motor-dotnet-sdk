@@ -7,6 +7,18 @@ namespace YasminaaiApi;
 public record PostQuoteRequestsRequest
 {
     /// <summary>
+    /// Set to ar to receive Arabic-localized quote content.
+    /// </summary>
+    [JsonIgnore]
+    public PostQuoteRequestsRequestAcceptLanguage? AcceptLanguage { get; set; }
+
+    /// <summary>
+    /// The OTP received by the customer from the Request OTP API
+    /// </summary>
+    [JsonPropertyName("otp")]
+    public required string Otp { get; set; }
+
+    /// <summary>
     /// Owner ID must be 10 digits starting with 1, 2, or 7
     /// </summary>
     [JsonPropertyName("owner_id")]
@@ -34,7 +46,13 @@ public record PostQuoteRequestsRequest
     /// Car sequence number must be 8 or 9 digits
     /// </summary>
     [JsonPropertyName("car_sequence_number")]
-    public required string CarSequenceNumber { get; set; }
+    public string? CarSequenceNumber { get; set; }
+
+    /// <summary>
+    /// Custom car number between 1000000 and 9999999999 (for newly imported cars)
+    /// </summary>
+    [JsonPropertyName("custom_number")]
+    public string? CustomNumber { get; set; }
 
     /// <summary>
     /// Indicates if the ownership is being transferred

@@ -14,7 +14,7 @@ public partial interface IPoliciesClient
     /// <summary>
     /// Listing requested policies
     /// </summary>
-    WithRawResponseTask<IEnumerable<Policy>> ListPoliciesAsync(
+    WithRawResponseTask<PaginatedPolicyResponse> ListPoliciesAsync(
         GetPoliciesRequest request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default

@@ -36,6 +36,12 @@ public record QuoteResponse : IJsonOnDeserialized
     public int? CarSequenceNumber { get; set; }
 
     /// <summary>
+    /// Custom car number for newly imported cars (present when `custom_number` was used in the request)
+    /// </summary>
+    [JsonPropertyName("custom_number")]
+    public string? CustomNumber { get; set; }
+
+    /// <summary>
     /// Whether it was a car transfer or not
     /// </summary>
     [JsonPropertyName("is_ownership_transfer")]

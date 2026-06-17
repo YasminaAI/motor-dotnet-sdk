@@ -3,5 +3,5 @@ namespace YasminaaiApi;
 [Serializable]
 internal class Version
 {
-    public const string Current = "0.0.51";
+    public const string Current = "0.0.6";
 }

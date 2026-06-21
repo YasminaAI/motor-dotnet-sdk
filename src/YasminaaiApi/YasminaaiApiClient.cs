@@ -15,7 +15,7 @@ public partial class YasminaaiApiClient : IYasminaaiApiClient
                 { "X-Fern-Language", "C#" },
                 { "X-Fern-SDK-Name", "YasminaaiApi" },
                 { "X-Fern-SDK-Version", Version.Current },
-                { "User-Agent", "Yasmina.Motor.DotNet/0.0.86" },
+                { "User-Agent", "Yasmina.Motor.DotNet/0.1.0" },
             }
         );
         foreach (var header in platformHeaders)
